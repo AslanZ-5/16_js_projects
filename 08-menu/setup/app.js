@@ -73,11 +73,22 @@ const menu = [
   },
 ];
 
-
+const btnContainer = document.querySelector('.btn-container')
 const sectionCenter = document.querySelector('.section-center')
 
+//load items
 window.addEventListener('DOMContentLoaded', function(){
-  let displayMenu = menu.map(function(item){
+  
+  displayMenuItems(menu)
+  displayMenuButtons()
+  
+})
+//filter items
+
+
+
+function displayMenuItems(menuItems){
+  let displayMenu = menuItems.map(function(item){
     return `<acticle class="menu-item">
     <img src="${item.img}" class="photo" alt="${item.title}">
     <div class="item-info">
@@ -93,5 +104,37 @@ window.addEventListener('DOMContentLoaded', function(){
   displayMenu = displayMenu.join('');
   
     sectionCenter.innerHTML = displayMenu
-  
-})
+}
+
+function displayMenuButtons(){
+  const categories = menu.reduce(function(values,item){
+    if(!values.includes(item.category)){
+      values.push(item.category)
+    }
+    return values
+  },['all'])
+
+  const displayCat = categories.map(function(item){
+    return `<button class="filter-btn" type="button" data-id="${item}">${item}</button>
+    `
+
+  })
+  btnContainer.innerHTML = displayCat.join('')
+  const filterBtns = document.querySelectorAll('.filter-btn')
+
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click',function(e){
+        const category = e.currentTarget.dataset.id
+        const menuCategory = menu.filter(function(menuItem){
+          if (menuItem.category === category){
+            return menuItem;
+          }
+        });
+        if(category == 'all'){
+          displayMenuItems(menu)
+        }else{
+          displayMenuItems(menuCategory)
+        }
+    })
+  })
+}
