@@ -236,7 +236,7 @@ nav {
   height: 50px;
 }
 .links-container {
-  height: auto !important;
+  height: 0px;
   overflow: hidden;
   transition: var(--transition);
 }
