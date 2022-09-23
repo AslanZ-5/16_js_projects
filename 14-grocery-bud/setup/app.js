@@ -117,6 +117,13 @@ function addToLacalStorage(id,value){
 }
 
 function removeFromLocalStorage(id){
+    let items = getLocalStorage()
+    items = items.filter(function (item){
+        if (item.id != id){
+            return item
+        }
+    })
+    localStorage.setItem('list', JSON.stringify(items))
 
 }
 
@@ -129,6 +136,6 @@ function getLocalStorage(){
 }
 // localStorage.setItem('orange', JSON.stringify(['item','item2']))
 
-// localStorage.removeItem('orange')
+// localStorage.removeItem('list')
 // console.log(JSON.parse(localStorage.getItem('orange'))[0])
 // ****** SETUP ITEMS **********
